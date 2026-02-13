@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إهداء خاص ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Amiri&family=Caveat:wght@600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-red: #d32f2f;
+            --jam-color: #a52a2a;
+            --baby-pink: #fce4ec;
+        }
+
+        body {
+            background-color: var(--baby-pink);
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Amiri', serif;
+        }
+
+        /* خلفية العناصر المتساقطة */
+        .fall-item {
+            position: absolute;
+            top: -50px;
+            pointer-events: none;
+            animation: fall linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+
+        /* تصميم الصندوق الزجاجي */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            text-align: center;
+            z-index: 10;
+            max-width: 500px;
+            width: 85%;
+            transition: transform 0.3s ease;
+        }
+
+        /* أنيميشن الاهتزاز عند الخطأ */
+        .shake {
+            animation: shake 0.4s;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        h1 {
+            color: var(--primary-red);
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            margin: 0 0 20px 0;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); text-shadow: 0 0 0px rgba(211, 47, 47, 0); }
+            50% { transform: scale(1.05); text-shadow: 0 0 15px rgba(211, 47, 47, 0.3); }
+            100% { transform: scale(1); }
+        }
+
+        input {
+            padding: 15px;
+            width: 80%;
+            border-radius: 50px;
+            border: 2px solid #f06292;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            outline: none;
+            text-align: center;
+        }
+
+        button {
+            background-color: var(--jam-color);
+            color: white;
+            border: none;
+            padding: 12px 50px;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(165, 42, 42, 0.4);
+        }
+
+        button:hover { background-color: #800000; transform: scale(1.1); }
+
+        #message-content {
+            display: none;
+            text-align: left;
+            max-height: 60vh;
+            overflow-y: auto;
+            direction: ltr; /* لجعل الإنجليزية تظهر بشكل صحيح */
+        }
+
+        .love-line {
+            font-family: 'Caveat', cursive;
+            font-size: 1.6rem;
+            color: #c2185b;
+            margin: 15px 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: 1s all ease;
+        }
+
+        .love-line.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+    <source src="love.mp3" type="audio/mpeg">
+</audio>
+    <div class="glass-card" id="mainCard">
+        <div id="loginArea">
+            <h1>Happy Valentine's Day</h1>
+            <p style="color: #880e4f;">ادخل كلمة السر</p>
+            <input type="text" id="passInput" placeholder="اكتب هنا...">
+            <br>
+            <button onclick="unlock()">Enter</button>
+        </div>
+
+        <div id="message-content">
+            </div>
+    </div>
+
+    <script>
+        const messages = [
+            "💗 You walked into my life like a quiet miracle I never knew I needed.",
+            "💗 Every time you smile, my whole world feels lighter and warmer.",
+            "💗 With you, even the ordinary days turn into beautiful memories.",
+            "💗 Your voice is my favorite sound, and your name is my favorite word.",
+            "💗 I didn’t believe in soulmates… until I found you.",
+            "💗 You are my comfort, my safe place, and my sweetest adventure.",
+            "💗 If I could choose again, I would still choose you in every lifetime.",
+            "💗 My heart feels at home whenever you’re near me.",
+            "💗 Loving you is the easiest and most beautiful thing I’ve ever done.",
+            "💗 This Valentine’s Day, and every day after, I just want you… always you."
+        ];
+
+        function unlock() {
+            const input = document.getElementById('passInput').value;
+            const card = document.getElementById('mainCard');
+            
+            if (input === "سلزونتي" || input === "سلازتي") {
+                document.getElementById('loginArea').style.display = 'none';
+                document.getElementById('message-content').style.display = 'block';
+                document.getElementById('bgMusic').play();
+                showMessages();
+            } else {
+                card.classList.add('shake');
+                setTimeout(() => card.classList.remove('shake'), 400);
+            }
+        }
+
+        function showMessages() {
+            const container = document.getElementById('message-content');
+            messages.forEach((msg, index) => {
+                const p = document.createElement('div');
+                p.className = 'love-line';
+                p.innerText = msg;
+                container.appendChild(p);
+                
+                // ظهور الأسطر واحد تلو الآخر
+                setTimeout(() => {
+                    p.classList.add('visible');
+                }, index * 1500); // فرق ثانية ونصف بين كل جملة
+            });
+        }
+
+        // إنشاء القلوب المتساقطة
+        function createHearts() {
+            const icons = ['💗', '🌸', '🩷', '✨'];
+            const div = document.createElement('div');
+            div.className = 'fall-item';
+            div.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+            div.style.left = Math.random() * 100 + 'vw';
+            div.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            div.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            document.body.appendChild(div);
+            setTimeout(() => div.remove(), 7000);
+        }
+        setInterval(createHearts, 300);
+    </script>
+</body>
+</html>
